@@ -4,7 +4,7 @@ This is an implementation of the discretization of dynamic optimal transport int
 
 A. **Quantitative convergence of a discretization of dynamic optimal transport using the dual formulation**,  
 &emsp; Sadashige Ishida and Hugo Lavenant.
-[[arXiv, to appear]](http://URL/)
+[[arXiv]](https://arxiv.org/abs/2312.12213)
 <p>
 <img src="https://sadashigeishida.bitbucket.io/dynamic_dual_OT/test2_NX16_nobar.png" height="170px">
 <img src="https://sadashigeishida.bitbucket.io/dynamic_dual_OT/test2_NX512_nobar.png" height="170px">

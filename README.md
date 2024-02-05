@@ -15,7 +15,7 @@ This repository also contains an example implementation of the discretization in
 
 B. **Optimal Transport with Proximal Splitting**,  
 &emsp; Nicolas Papadakis, Gabriel Peyré, Edouard Oudet.
-*SIAM Journal on Imaging Sciences* [[HAL repository]](https://epubs.siam.org/doi/10.1137/130920058)
+*SIAM Journal on Imaging Sciences* [[HAL repository]](https://hal.science/hal-00816211)
 
 Dependencies:  
 - Code for A is written in Jupyter (Python 3) and requires the following python libraries: jupyter, numpy, scipy, matplotlib.  

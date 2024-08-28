@@ -35,8 +35,10 @@ testCase = 1
 
 # Parameter w 
 if testCase == 1
-    w = 0.2
+    w=1
 elseif testCase == 2
+    w = 0.2
+elseif testCase == 3
     w = 0.05
 end
 
@@ -45,6 +47,8 @@ if testCase == 1
     nameFile = "case_1.txt"
 elseif testCase == 2
     nameFile = "case_2.txt"
+elseif testCase == 3
+    nameFile = "case_3.txt"
 end
 
 function periodize(x)
@@ -62,61 +66,86 @@ function periodize(x)
 
 end
 
+function invertTt(t,y)
+    # Return the solution x to y = x + t/(4*pi*w) * sin(2*pi*x)
+    tol = 1e-7
+
+    x = y
+    while abs(x + t/(4*pi*w) * sin(2*pi*w*x) - y) > tol
+       x =  y - t/(4*pi*w) * sin(2*pi*w*x)
+    end
+    
+    return x 
+
+end
+
+
+
+
 function rhoFunct(x,t,testCase)
-    # Analytical expression of the function rho
 
     if testCase == 1
-        return max.(w .- abs.(periodize(x .- 0.5))/(1+t), 0.)/((1+t)^2*w^2)
+        return (1+0.5*cos(2*pi*w*invertTt(t,x-0.5))) / (1+0.5*t*cos(2*pi*w*invertTt(t,x-0.5)))
     end
 
     if testCase == 2
+        return max.(w .- abs.(periodize(x .- 0.5))/(1+t), 0.)/((1+t)^2*w^2)
+    end
+
+    if testCase == 3
         return 1/(2*w) * Float64( abs.(periodize(x .- 0.5)) - t * (periodize(0.5 - w)) <= w ) .* Float64( abs.(periodize(x .- 0.5)) - t * (periodize(0.5 - w)) >= 0. ) 
     end 
+
 end
 
 function rhoIntegrated(x,deltaX,t,testCase)
-    # Integrate the analytical expression to get to projected measure Pi \rho 
     return quadgk( y -> rhoFunct(y,t,testCase), x - deltaX/2, x+deltaX/2, rtol=1e-6)[1]
 end
 
 function phiFunction(x,t,testCase)
-    # Analytical expression of the function phi
-
-    if testCase == 1
+    if testCase == 2
         return (x.-0.5).^2 ./ (2 * (1. + t))
     end
 
-    if testCase == 2
+    if (testCase == 1) | (testCase == 3)
         return abs.(x.-0.5) * (0.5 - w)  .- 0.5*(0.5-w)^2 * t
     end
 end
 
 function velocityFunction(x,t,testCase)
-    # Analytical expression of the velocity field
-
+    
     if testCase == 1
+        return 1/(4*pi*w) * sin.(2*pi*invertTt.(t,x-0.5))
+    end
+    
+    if testCase == 2
         return (x .- 0.5)/(1+t)
     end
 
-    if testCase == 2
+    if testCase == 3
         if x >= 0.5
             return 0.5 - w 
         else 
             return -(0.5 - w)
         end
     end 
+
 end
 
 function transportCost(testCase)
-    # Analytical expression of the transport cost 
 
     if testCase == 1
-        return w^2/12
+        return 1/(64*pi^2*w^2) 
     end
 
     if testCase == 2
+        return w^2/12
+    end
+
+    if testCase == 3
         return (0.5 - w)^2/2
     end
+
 end 
 
 

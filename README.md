@@ -3,7 +3,7 @@
 This is an implementation of the discretization of dynamic optimal transport introduced in the article,
 
 A. **Quantitative convergence of a discretization of dynamic optimal transport using the dual formulation**,  
-&emsp; Sadashige Ishida and Hugo Lavenant.
+&emsp; Sadashige Ishida and Hugo Lavenant. *Foundations of Computational Mathematics*, 2024.
 [[arXiv]](https://arxiv.org/abs/2312.12213)
 <p>
 <img src="https://sadashigeishida.bitbucket.io/dynamic_dual_OT/test2_NX16_nobar.png" height="170px">
